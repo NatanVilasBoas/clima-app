@@ -2,19 +2,17 @@ import { useState } from "react";
 import Search from "./components/SearchBar/SearchBar";
 
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
-console.log(apikey);
-
 function App() {
 
 
   const [city, setCity] = useState({});
   const [search, setSearch] = useState('');
 
-  const searchLocationKey = async (event) => {
-    event.preventDefault();
+  const searchLocationKey = async (value) => {
+    setSearch(value);
     
     try{
-      const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apikey}&q=${search}&language=pt-br`);
+      const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apikey}&q=${value}&language=pt-br`);
 
       if(!response.ok){
         throw new Error('Network response was not ok');
@@ -49,11 +47,7 @@ function App() {
 
   return (
     <>
-      <Search/>
-      <div>
-        <input placeholder="teste" value={search} onChange={e => setSearch(e.target.value)}/>
-        <button onClick={ e => searchLocationKey(e)}>Pesquisar</button>
-      </div>
+      <Search onSearch={value => searchLocationKey(value)}/>
       {city.WeatherText && (
         <div>
           <h2>Condição Atual</h2>

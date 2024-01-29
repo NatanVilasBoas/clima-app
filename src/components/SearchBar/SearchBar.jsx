@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const SearchBar = styled.input`
@@ -29,11 +30,23 @@ const CustomButton = styled.button`
     border-radius: 0 12px 12px 0;
 `
 
-const Search = () => {
+
+const Search = (props) => {
+    
+    const [searchValue, setSearchValue] = useState('')
+    
+    const aoPesquisar = (e) => {
+        e.preventDefault();
+        props.onSearch(searchValue);
+    }
+
     return(
         <Container>
-            <SearchBar type="text" placeholder="Digite a cidade, estado, país"/>
-            <CustomButton>Pesquisar</CustomButton>
+            <SearchBar type="text" 
+                        placeholder="Digite a cidade, estado, país"
+                        value={searchValue}
+                        onChange={e => setSearchValue(e.target.value)}/>
+            <CustomButton onClick={aoPesquisar}>Pesquisar</CustomButton>
         </Container>
     )
 }

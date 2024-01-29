@@ -1,5 +1,25 @@
 import { useState } from "react";
 import Search from "./components/SearchBar/SearchBar";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255,152,67);
+  background: linear-gradient(0deg, rgba(255,152,67,1) 0%, rgba(255,221,149,1) 100%);
+  height: 100%; 
+`
+
+const Temperature = styled.p`
+  font-size: 84px;
+  color: white;
+`
+
+const ClimaText = styled(Temperature)`
+  font-size: 32px;
+`
 
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 function App() {
@@ -48,12 +68,12 @@ function App() {
   return (
     <>
       <Search onSearch={value => searchLocationKey(value)}/>
-      {city.WeatherText && (
-        <div>
-          <h2>Condição Atual</h2>
-          <p>Weather: {city.WeatherText}</p>
-        </div>
-      )}
+        <Container>
+          <h2>Clima Atual</h2>
+          <ClimaText>Predominantemente Ensolarado</ClimaText>
+          <Temperature>28°C</Temperature>
+        </Container>
+      
     </>
   );
 }

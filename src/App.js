@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Search from "./components/SearchBar/SearchBar";
 
+const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
+console.log(apikey);
 
 function App() {
 
-  const apikey = 'kYfLOAWGq2g5a2QAArgVhnIdqKrfXz9x';
 
   const [city, setCity] = useState({});
   const [search, setSearch] = useState('');

@@ -26,7 +26,7 @@ const CustomButton = styled.button`
     height: 2.4em;
     border: none;
     cursor:pointer;
-    border-radius: 0 12px 12px;
+    border-radius: 0 12px 12px 0;
 `
 
 const Search = () => {

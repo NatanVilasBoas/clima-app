@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 const CustomLink = styled.a`
     text-decoration: none;
-    color: white;
+    color: #4DD3D7;
     transition: color ease-in-out 0.3s; 
 
     &:hover{
-        color: #301E67;
+        color: #61B3B6;
     }
 `
 

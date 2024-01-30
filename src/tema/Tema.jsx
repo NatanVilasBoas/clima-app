@@ -1,9 +1,9 @@
 import { ThemeProvider } from "styled-components"
 
 const theme = {
-    sunny: "linear-gradient(0deg, rgba(255,152,67,1) 0%, rgba(255,221,149,1) 100%)",
-    mostlyCloudy: "linear-gradient(0deg, rgba(255,248,214,1) 0%, rgba(154,211,224,1) 100%)",
-    rain: "linear-gradient(0deg, rgba(169,201,201,1) 0%, rgba(154,211,224,1) 100%)"
+    hot: "linear-gradient(0deg, rgba(255,152,67,1) 0%, rgba(255,221,149,1) 100%)",
+    warm: "linear-gradient(0deg, rgba(255,248,214,1) 0%, rgba(154,211,224,1) 100%)",
+    cold: "linear-gradient(0deg, rgba(169,201,201,1) 0%, rgba(154,211,224,1) 100%)"
 }
 
 const Tema = ({children}) => {

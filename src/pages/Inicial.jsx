@@ -12,11 +12,11 @@ const Context = styled.section`
 
 
         if (temperatura < 15) {
-            return props.theme.rain;
+            return props.theme.cold;
         } else if (temperatura < 25) {
-            return props.theme.mostlyCloudy;
+            return props.theme.warm;
         } else {
-            return props.theme.sunny;
+            return props.theme.hot;
         }
     }};
     height: 100vh; 
@@ -44,15 +44,11 @@ const ClimaText = styled.p`
 
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
-
-
-
 const Inicial = () => {
 
     const [city, setCity] = useState({});
     const [search, setSearch] = useState('');
     const [temperatura, setTemperatura] = useState(0);
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,11 +70,10 @@ const Inicial = () => {
                     setCity(dataClima[0]);
                     setTemperatura(dataClima[0].Temperature.Metric.Value);
                 }
-    
+
             } catch (err) {
                 console.error(`Error fetching city data: ${err}`);
             }
-    
         }
 
         if(search){

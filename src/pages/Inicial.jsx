@@ -1,4 +1,5 @@
 import Footer from "../components/Footer/Footer";
+import LinkWord from "../components/LinkWord/LinkWord";
 import Search from "../components/SearchBar/SearchBar";
 import { useState } from "react";
 import styled from "styled-components";
@@ -34,7 +35,7 @@ const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
 
 const Inicial = () => {
-    
+
     const [city, setCity] = useState({});
     const [search, setSearch] = useState('');
 
@@ -82,7 +83,7 @@ const Inicial = () => {
                 <h2>Clima Atual</h2>
                 <ClimaText>Predominantemente Ensolarado</ClimaText>
                 <Temperature>28°C</Temperature>
-                <a href="..">Mais detalhes</a>
+                <LinkWord link="#" text="Mais detalhes"/>
             </Content>
             <Footer />
         </Context>

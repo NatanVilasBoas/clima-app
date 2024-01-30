@@ -1,13 +1,9 @@
-
-import Inicial from "./pages/Inicial";
-import Tema from "./tema/Tema";
+import AppRoutes from "./routes";
 
 
 function App() {
   return (
-      <Tema>
-        <Inicial/>
-      </Tema>
+        <AppRoutes/>
   );
 }
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import LinkWord from "../components/LinkWord/LinkWord";
 import Search from "../components/SearchBar/SearchBar";
@@ -49,6 +50,7 @@ const Inicial = () => {
     const [city, setCity] = useState({});
     const [search, setSearch] = useState('');
     const [temperatura, setTemperatura] = useState(0);
+    const [key, setKey] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,8 +64,9 @@ const Inicial = () => {
                 const data = await response.json();
     
                 if (data.length > 0) {
-                    const key = data[0].Key;
-                    const respClima = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${apikey}&language=pt-br`)
+                    const keyCity = data[0].Key;
+                    setKey(data[0].Key)
+                    const respClima = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br`)
     
                     const dataClima = await respClima.json();
     
@@ -90,7 +93,9 @@ const Inicial = () => {
                     <p style={{fontSize: '18px', fontWeight: '600', margin: '0'}}>Clima Atual em {search}</p>
                     <ClimaText>{city.WeatherText}</ClimaText>
                     <Temperature>{`${Math.round(parseFloat(city.Temperature.Metric.Value))}°C`}</Temperature>
-                    <LinkWord link="#" text="Mais detalhes" />
+                    <Link to={`/${key}`}>
+                        <p>Mais detalhes</p>
+                    </Link>
                 </Content>
             ) : (<Content>
                 <h2>Seja bem-Vindo</h2>

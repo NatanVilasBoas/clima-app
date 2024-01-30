@@ -9,7 +9,8 @@ const Container = styled.section`
     padding: 30px 0;
     height: 2em;
     margin-top: 2em;
-    background-color: #9BB8CD;
+    background-color: rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(30px);
 `;
 
 const Footer = () => {

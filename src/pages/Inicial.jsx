@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Context = styled.section`
     display: flex;
     flex-direction: column;
-    background: ${props => props.theme.rain};
+    background: ${props => props.theme.mostlyCloudy};
     height: 100vh; 
 `
 
@@ -16,7 +16,6 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${props => props.theme.rain};
   flex: 1;
 `
 

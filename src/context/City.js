@@ -16,11 +16,7 @@ export default function CityProvider({children}){
 }
 
 export function useCityContext(){
-    const {city, setCity, cityName, setCityName} = useContext(CityContext);
-
-    function addCityName(newCityName){
-        setCityName(newCityName);
-    }
+    const {city, setCity} = useContext(CityContext);
 
     function addCity(newCity){
     
@@ -29,8 +25,6 @@ export function useCityContext(){
 
     return{
         city,
-        addCity,
-        cityName,
-        addCityName
+        addCity
     }
 }

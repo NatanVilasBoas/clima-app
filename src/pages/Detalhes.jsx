@@ -51,16 +51,16 @@ const Button = styled.button`
 
 const Detalhes = () => {
 
-    const { city, cityName } = useCityContext();
+    const { city } = useCityContext();
 
     return (
         <section style={{ backgroundColor: "#E9F6FF" }}>
             {city ? (
                 <>
                     <Link to="/">
-                        <Button><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(-45)" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.24000000000000005"></g><g id="SVGRepo_iconCarrier"> <path d="M17 17L7 7M7 7V16M7 7H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></Button>
+                        <Button><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(-45)" stroke="#000000"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" stroke="#CCCCCC" strokeWidth="0.24000000000000005"></g><g id="SVGRepo_iconCarrier"> <path d="M17 17L7 7M7 7V16M7 7H16" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></Button>
                     </Link>
-                    <Title>Clima em {cityName}</Title>
+                    <Title>Clima em {city.Name}</Title>
                     <Container>
                         <CardWind>
                             <div>

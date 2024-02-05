@@ -9,9 +9,6 @@ const Context = styled.section`
     display: flex;
     flex-direction: column;
     background: ${props => {
-        const temperatura = props.temperatura;
-
-
         if (temperatura < 15) {
             return props.theme.cold;
         } else if (temperatura < 25) {
@@ -45,12 +42,12 @@ const ClimaText = styled.p`
 
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
+let temperatura = 0;
+
 const Inicial = () => {
 
-    const {city, addCity, cityName, addCityName} = useCityContext();
+    const {city, addCity} = useCityContext();
     const [search, setSearch] = useState('');
-    const [temperatura, setTemperatura] = useState(0);
-    const [key, setKey] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,15 +62,20 @@ const Inicial = () => {
     
                 if (data.length > 0) {
                     const keyCity = data[0].Key;
-                    setKey(data[0].Key)
                     const respClima = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
     
                     const dataClima = await respClima.json();
+                    
+                    const cityWithKeyAndName = {
+                        ...dataClima[0],
+                        Key: keyCity,
+                        Name: search
+                    };
 
-                    setTemperatura(dataClima[0].Temperature.Metric.Value);
-
-                    addCity(dataClima[0]);
-                    addCityName(search);
+                    
+                    addCity(cityWithKeyAndName);
+                    
+                    temperatura = Math.round(parseFloat(cityWithKeyAndName.Temperature.Metric.Value));
                 }
 
             } catch (err) {
@@ -85,17 +87,18 @@ const Inicial = () => {
             fetchData();
         }
     
-    }, [search, addCity, addCityName]);
+    }, [search, addCity]);
+
 
     return (
         <Context temperatura={temperatura}>
             <Search onSearch={value => setSearch(value)} />
             {city.WeatherText ? (
                 <Content>
-                    <p style={{fontSize: '18px', fontWeight: '600', margin: '0'}}>Clima Atual em {cityName}</p>
+                    <p style={{fontSize: '18px', fontWeight: '600', margin: '0'}}>Clima Atual em {city.Name}</p>
                     <ClimaText>{city.WeatherText}</ClimaText>
-                    <Temperature>{`${Math.round(parseFloat(city.Temperature.Metric.Value))}°C`}</Temperature>
-                    <Link to={`/${key}`}>
+                    <Temperature>{`${temperatura}°C`}</Temperature>
+                    <Link to={`/${city.Key}`}>
                         <p>Mais detalhes</p>
                     </Link>
                 </Content>

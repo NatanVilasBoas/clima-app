@@ -8,7 +8,9 @@ import { useCityContext } from "../context/City";
 const Context = styled.section`
     display: flex;
     flex-direction: column;
-    background: ${props => {
+    background: ${props => { 
+        const temperatura = props.temperatura;
+
         if (temperatura < 15) {
             return props.theme.cold;
         } else if (temperatura < 25) {

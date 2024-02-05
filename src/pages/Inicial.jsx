@@ -42,12 +42,11 @@ const ClimaText = styled.p`
 
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
-let temperatura = 0;
-
 const Inicial = () => {
 
     const {city, addCity} = useCityContext();
     const [search, setSearch] = useState('');
+    conts [ temperatura, setTemperatura] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,7 +74,7 @@ const Inicial = () => {
                     
                     addCity(cityWithKeyAndName);
                     
-                    temperatura = Math.round(parseFloat(cityWithKeyAndName.Temperature.Metric.Value));
+                    setTemperatura(Math.round(parseFloat(cityWithKeyAndName.Temperature.Metric.Value)))
                 }
 
             } catch (err) {

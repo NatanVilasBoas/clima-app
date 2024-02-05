@@ -48,7 +48,6 @@ const Inicial = () => {
 
     const {city, addCity} = useCityContext();
     const [search, setSearch] = useState('');
-    const [ temperatura, setTemperatura] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,7 +77,6 @@ const Inicial = () => {
                         
                         addCity(cityWithKeyAndName);
                         
-                        setTemperatura(Math.round(parseFloat(cityWithKeyAndName.Temperature.Metric.Value)))
                         setSearch('');
                     }
                 }
@@ -94,9 +92,8 @@ const Inicial = () => {
     
     }, [search, city, addCity]);
 
-
     return (
-        <Context temperatura={temperatura}>
+        <Context temperatura={city.Temperature ? Math.round(parseFloat(city.Temperature.Metric.Value)) : 0}>
             <Search onSearch={value => setSearch(value)} />
             {city.WeatherText ? (
                 <Content>

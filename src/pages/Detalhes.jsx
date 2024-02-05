@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useCityContext } from "../context/City";
 import Footer from "../components/Footer/Footer";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     margin: 3vw;

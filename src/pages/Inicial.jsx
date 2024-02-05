@@ -85,7 +85,7 @@ const Inicial = () => {
             fetchData();
         }
     
-    }, [search]);
+    }, [search, addCity, addCityName]);
 
     return (
         <Context temperatura={temperatura}>

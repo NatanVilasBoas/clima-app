@@ -1,61 +1,78 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { useCityContext } from "../context/City";
 
-const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
+const Container = styled.div`
+    margin: 3vw;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+`
 
+const Title = styled.h1`
+    font-size: 40px;
+    text-align: center;
+    border-bottom: 1px solid black;
+`
+
+const Card = styled.div`
+    border: 1px solid #E5E1DA;
+    padding: 1.1em;
+    border-radius: 16px;
+    background-color: #FBF9F1;
+`
+
+const CardWind = styled(Card)`
+    display: flex;
+    justify-content: space-around;
+`
 
 const Detalhes = () => {
-    const {id} = useParams();
-    const [cityDetails, setCityDetails] = useState({});
 
-    useEffect(() => {
-        const fetchData = async () => {
-            
-            try{
-                const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=${apikey}&language=pt-br&details=true`);
-    
-                const data = await response.json();
-                setCityDetails(data[0]);
+    const { city, cityName } = useCityContext();
 
-            } catch(e){
-                console.error('Falha na consulta: ', e);
-            }
-
-        }
-
-        fetchData();
-    }, [])
-
-    return(
+    return (
         <section>
-            {cityDetails ? (
-                <div>
-                    {cityDetails.RealFeelTemperature && cityDetails.RealFeelTemperature.Metric ? (
-                        <div>
-                            <h3>Sensação Térmica:</h3>
-                            <p>{`${cityDetails.RealFeelTemperature.Metric.Value}°C`}</p>
-                            <p>{cityDetails.RealFeelTemperature.Metric.Phrase}</p>
-                            <h3>Humidade Relativa:</h3>
-                            <p>{cityDetails.RelativeHumidity}%</p>
-                            <h3>Vento:</h3>
-                            <p>{cityDetails.Wind.Direction.Degrees}° {cityDetails.Wind.Direction.Localized}</p>
-                            <h5>Velocidade:</h5>
-                            <p>{cityDetails.Wind.Speed.Metric.Value}km/h</p>
+            {city ? (
+                <>
+                    <button>Voltar</button>
+                    <Title>Clima em {cityName}</Title>
+                    <Container>
+                        <Card>
                             <h3>Máxima:</h3>
-                            <p>{cityDetails.TemperatureSummary.Past12HourRange.Maximum.Metric.Value}°C</p>
+                            <p>{city.TemperatureSummary.Past12HourRange.Maximum.Metric.Value}°C</p>
+                        </Card>
+                        <Card>
                             <h3>Mínima:</h3>
-                            <p>{cityDetails.TemperatureSummary.Past12HourRange.Minimum.Metric.Value}°C</p>
-                        </div>
-                    ) : (
-                        <p>Falha ao obter os detalhes da temperatura</p>
-                    )}
-                </div>
+                            <p>{city.TemperatureSummary.Past12HourRange.Minimum.Metric.Value}°C</p>
+                        </Card>
+                        <Card>
+                            <h3>Sensação Térmica:</h3>
+                            <p>{`${city.RealFeelTemperature.Metric.Value}°C`}</p>
+                            <p>{city.RealFeelTemperature.Metric.Phrase}</p>
+                        </Card>
+                        <Card>
+                            <h3>Humidade Relativa:</h3>
+                            <p>{city.RelativeHumidity}%</p>
+                        </Card>
+                        <CardWind>
+                            <div>
+                                <h3>Vento:</h3>
+                                <p>{city.Wind.Direction.Degrees}° {city.Wind.Direction.Localized}</p>
+                            </div>
+                            <div>
+                                <h3>Velocidade:</h3>
+                                <p>{city.Wind.Speed.Metric.Value}km/h</p>
+                            </div>
+                        </CardWind>
+                    </Container>
+                </>
             ) : (
-                <div>
-                    <p>Carregando...</p>
-                </div>
+                <p>Falha ao obter os detalhes da temperatura</p>
             )}
-        </section>
+        </section >
     )
 }
 

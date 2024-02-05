@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
-import LinkWord from "../components/LinkWord/LinkWord";
 import Search from "../components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useCityContext } from "../context/City";
 
 const Context = styled.section`
     display: flex;
@@ -47,7 +47,7 @@ const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
 const Inicial = () => {
 
-    const [city, setCity] = useState({});
+    const {city, addCity, cityName, addCityName} = useCityContext();
     const [search, setSearch] = useState('');
     const [temperatura, setTemperatura] = useState(0);
     const [key, setKey] = useState('');
@@ -66,12 +66,14 @@ const Inicial = () => {
                 if (data.length > 0) {
                     const keyCity = data[0].Key;
                     setKey(data[0].Key)
-                    const respClima = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br`)
+                    const respClima = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
     
                     const dataClima = await respClima.json();
-    
-                    setCity(dataClima[0]);
+
                     setTemperatura(dataClima[0].Temperature.Metric.Value);
+
+                    addCity(dataClima[0]);
+                    addCityName(search);
                 }
 
             } catch (err) {
@@ -90,7 +92,7 @@ const Inicial = () => {
             <Search onSearch={value => setSearch(value)} />
             {city.WeatherText ? (
                 <Content>
-                    <p style={{fontSize: '18px', fontWeight: '600', margin: '0'}}>Clima Atual em {search}</p>
+                    <p style={{fontSize: '18px', fontWeight: '600', margin: '0'}}>Clima Atual em {cityName}</p>
                     <ClimaText>{city.WeatherText}</ClimaText>
                     <Temperature>{`${Math.round(parseFloat(city.Temperature.Metric.Value))}°C`}</Temperature>
                     <Link to={`/${key}`}>

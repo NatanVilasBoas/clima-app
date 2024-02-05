@@ -1,9 +1,12 @@
+import CityProvider from "./context/City";
 import AppRoutes from "./routes";
 
 
 function App() {
   return (
-        <AppRoutes/>
+    <CityProvider>
+      <AppRoutes />
+    </CityProvider>
   );
 }
 

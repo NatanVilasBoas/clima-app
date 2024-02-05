@@ -63,20 +63,24 @@ const Inicial = () => {
     
                 if (data.length > 0) {
                     const keyCity = data[0].Key;
-                    const respClima = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
-    
-                    const dataClima = await respClima.json();
-                    
-                    const cityWithKeyAndName = {
-                        ...dataClima[0],
-                        Key: keyCity,
-                        Name: search
-                    };
 
-                    
-                    addCity(cityWithKeyAndName);
-                    
-                    setTemperatura(Math.round(parseFloat(cityWithKeyAndName.Temperature.Metric.Value)))
+                    if(city.Key !== keyCity){
+
+                        const respClima = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
+        
+                        const dataClima = await respClima.json();
+                        
+                        const cityWithKeyAndName = {
+                            ...dataClima[0],
+                            Key: keyCity,
+                            Name: search
+                        };
+                        
+                        addCity(cityWithKeyAndName);
+                        
+                        setTemperatura(Math.round(parseFloat(cityWithKeyAndName.Temperature.Metric.Value)))
+                        setSearch('');
+                    }
                 }
 
             } catch (err) {
@@ -88,7 +92,7 @@ const Inicial = () => {
             fetchData();
         }
     
-    }, [search, addCity]);
+    }, [search, city, addCity]);
 
 
     return (

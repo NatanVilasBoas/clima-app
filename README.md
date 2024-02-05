@@ -39,6 +39,7 @@ npm start
 ## Criado com
 
 - React
+- styled-components
 
 ## Contribuição
 

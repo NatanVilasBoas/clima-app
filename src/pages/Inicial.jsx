@@ -52,7 +52,7 @@ const Inicial = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apikey}&q=${search}&language=pt-br`);
+                const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apikey}&q=${search}&language=pt-br`);
     
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -62,7 +62,7 @@ const Inicial = () => {
     
                 if (data.length > 0) {
                     const keyCity = data[0].Key;
-                    const respClima = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
+                    const respClima = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
     
                     const dataClima = await respClima.json();
                     

@@ -102,7 +102,7 @@ const Inicial = () => {
                 <Content>
                     <p style={{fontSize: '18px', fontWeight: '600', margin: '0'}}>Clima Atual em {city.Name}</p>
                     <ClimaText>{city.WeatherText}</ClimaText>
-                    <Temperature>{`${temperatura}°C`}</Temperature>
+                    <Temperature>{`${Math.round(parseFloat(city.Temperature.Metric.Value))}°C`}</Temperature>
                     <Link to={`/${city.Key}`}>
                         <p>Mais detalhes</p>
                     </Link>

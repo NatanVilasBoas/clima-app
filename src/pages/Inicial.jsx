@@ -48,7 +48,7 @@ const Inicial = () => {
 
     const {city, addCity} = useCityContext();
     const [search, setSearch] = useState('');
-    conts [ temperatura, setTemperatura] = useState(0);
+    const [ temperatura, setTemperatura] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {

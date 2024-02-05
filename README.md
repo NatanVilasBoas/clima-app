@@ -4,6 +4,8 @@ Este é um site para consulta a API de clima.
 
 Com ele é possível consultar por cidade, estado ou país e receber informações sobre o clima do local.
 
+Para vê-lo em ação, basta acessar este link: https://clima-f839c9m1d-natan-vilas-boas-projects.vercel.app/
+
 O projeto ainda está em desenvolvimento e serão atribuídas mais funcionalidades.
 
 ## Requisitos

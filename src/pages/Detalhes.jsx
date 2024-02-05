@@ -17,6 +17,8 @@ const Title = styled.h1`
     font-size: 40px;
     text-align: center;
     border-bottom: 1px solid black;
+    margin: 0;
+    padding: 1em;
 `
 
 const Card = styled.div`
@@ -28,6 +30,7 @@ const Card = styled.div`
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1)
 `
 
 const CardWind = styled(Card)`
@@ -35,6 +38,15 @@ const CardWind = styled(Card)`
     grid-column: span 2;
     display: flex;
     justify-content: space-around;
+`
+
+const Button = styled.button`
+    position: fixed;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    top: 2em;
+    left: 1em;
 `
 
 const Detalhes = () => {
@@ -46,7 +58,7 @@ const Detalhes = () => {
             {city ? (
                 <>
                     <Link to="/">
-                        <button >Voltar</button>
+                        <Button><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(-45)" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.24000000000000005"></g><g id="SVGRepo_iconCarrier"> <path d="M17 17L7 7M7 7V16M7 7H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></Button>
                     </Link>
                     <Title>Clima em {cityName}</Title>
                     <Container>

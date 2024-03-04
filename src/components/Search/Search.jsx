@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 const SearchBar = styled.input`
@@ -72,4 +72,4 @@ const Search = (props) => {
     )
 }
 
-export default Search
+export default memo(Search);

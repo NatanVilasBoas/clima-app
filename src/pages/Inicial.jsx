@@ -1,4 +1,4 @@
-import Search from "../components/SearchBar/SearchBar";
+import Search from "../components/Search/Search";
 import { useState } from "react";
 import RespAPI from "../components/RespAPI/RespAPI";
 

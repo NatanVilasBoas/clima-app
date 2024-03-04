@@ -6,10 +6,9 @@ CityContext.displayName = "Wheater";
 
 export default function CityProvider({children}){
     const [city, setCity] = useState({});
-    const [cityName, setCityName] = useState('');
 
     return(
-        <CityContext.Provider value={{city, setCity, cityName, setCityName}}>
+        <CityContext.Provider value={{city, setCity}}>
             {children}
         </CityContext.Provider>
     )
@@ -23,8 +22,11 @@ export function useCityContext(){
         setCity(newCity);
     }
 
+    const temperatura = city.Temperature ? Math.round(parseFloat(city.Temperature.Metric.Value)) : 0;
+
     return{
         city,
-        addCity
+        addCity,
+        temperatura
     }
 }

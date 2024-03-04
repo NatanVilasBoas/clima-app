@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useCityContext } from "../context/City";
-import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -54,7 +53,7 @@ const Detalhes = () => {
     const { city } = useCityContext();
 
     return (
-        <section style={{ backgroundColor: "#E9F6FF" }}>
+        <section style={{ backgroundColor: "transparent" }}>
             {city ? (
                 <>
                     <Link to="/">
@@ -96,7 +95,6 @@ const Detalhes = () => {
             ) : (
                 <p>Falha ao obter os detalhes da temperatura</p>
             )}
-            <Footer />
         </section >
     )
 }

@@ -39,6 +39,7 @@ const RespAPI = ({ search }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
+        if(!search) return;
         const fetchData = async () => {
             setLoading(true);
             try {

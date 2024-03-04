@@ -1,4 +1,3 @@
-import Footer from "../components/Footer/Footer";
 import Search from "../components/SearchBar/SearchBar";
 import { useState } from "react";
 import RespAPI from "../components/RespAPI/RespAPI";
@@ -12,7 +11,6 @@ const Inicial = () => {
         <>
             <Search onSearch={value => setSearch(value)} />
             <RespAPI search={search}/>
-            <Footer />
         </>
     )
 }

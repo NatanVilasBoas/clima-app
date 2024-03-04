@@ -6,17 +6,7 @@ import { memo, useEffect } from "react";
 const Context = styled.section`
     display: flex;
     flex-direction: column;
-    background: ${props => {
-        const temperatura = props.$temperatura;
-
-        if (temperatura < 15) {
-            return props.theme.cold;
-        } else if (temperatura < 25) {
-            return props.theme.warm;
-        } else {
-            return props.theme.hot;
-        }
-    }};
+    background: transparent;
     height: 100vh; 
     transition: background 0.5s ease;
 `
@@ -43,7 +33,7 @@ const ClimaText = styled.p`
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
 const RespAPI = ({search}) => {
-    const {city, addCity} = useCityContext();
+    const {city, addCity, temperatura} = useCityContext();
     
     useEffect(() => {
         const fetchData = async () => {
@@ -88,12 +78,12 @@ const RespAPI = ({search}) => {
 
     return (
         <>
-        <Context $temperatura={city.Temperature ? Math.round(parseFloat(city.Temperature.Metric.Value)) : 0}>
+        <Context>
             {city.WeatherText ? (
                 <Content>
                     <p style={{ fontSize: '18px', fontWeight: '600', margin: '0' }}>Clima Atual em {city.Name}</p>
                     <ClimaText>{city.WeatherText}</ClimaText>
-                    <Temperature>{`${Math.round(parseFloat(city.Temperature.Metric.Value))}°C`}</Temperature>
+                    <Temperature>{`${temperatura}°C`}</Temperature>
                     <Link to={`/${city.Key}`}>
                         <p>Mais detalhes</p>
                     </Link>

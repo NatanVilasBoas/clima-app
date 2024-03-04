@@ -22,8 +22,11 @@ export function useCityContext(){
         setCity(newCity);
     }
 
+    const temperatura = city.Temperature ? Math.round(parseFloat(city.Temperature.Metric.Value)) : 0;
+
     return{
         city,
-        addCity
+        addCity,
+        temperatura
     }
 }

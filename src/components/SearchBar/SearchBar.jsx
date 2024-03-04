@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 const SearchBar = styled.input`
@@ -52,10 +52,14 @@ const Search = (props) => {
     
     const [searchValue, setSearchValue] = useState('')
     
-    const aoPesquisar = (e) => {
+    const aoPesquisar = useCallback((e) => {
         e.preventDefault();
         props.onSearch(searchValue);
-    }
+    }, [props, searchValue]);
+
+    const memoizedButton = useMemo(() => (
+        <CustomButton onClick={aoPesquisar}>Pesquisar</CustomButton>
+    ), [aoPesquisar]);
 
     return(
         <Container>
@@ -63,7 +67,7 @@ const Search = (props) => {
                         placeholder="Digite a cidade, estado, país"
                         value={searchValue}
                         onChange={e => setSearchValue(e.target.value)}/>
-            <CustomButton onClick={aoPesquisar}>Pesquisar</CustomButton>
+            {memoizedButton}
         </Container>
     )
 }

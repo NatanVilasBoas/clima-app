@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCityContext } from "../../context/City";
-import { memo, useEffect } from "react";
+import { Suspense, memo, useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
 
 const Context = styled.section`
     display: flex;
@@ -32,11 +33,14 @@ const ClimaText = styled.p`
 
 const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 
-const RespAPI = ({search}) => {
-    const {city, addCity, temperatura} = useCityContext();
-    
+const RespAPI = ({ search }) => {
+    const { city, addCity, temperatura } = useCityContext();
+    const [loading, setLoading] = useState(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apikey}&q=${search}&language=pt-br`);
 
@@ -46,7 +50,7 @@ const RespAPI = ({search}) => {
 
                 const data = await response.json();
 
-                if (data.length > 0) {
+                if ( data && data.length > 0) {
                     const keyCity = data[0].Key;
 
                     if (city.Key !== keyCity) {
@@ -67,34 +71,34 @@ const RespAPI = ({search}) => {
 
             } catch (err) {
                 console.error(`Error fetching city data: ${err}`);
+            } finally {
+                setLoading(false);
             }
         }
+        fetchData();
 
-        if (search) {
-            fetchData();
-        }
-
-    }, [search, city, addCity]);
+    }, [search]);
 
     return (
-        <>
-        <Context>
-            {city.WeatherText ? (
-                <Content>
-                    <p style={{ fontSize: '18px', fontWeight: '600', margin: '0' }}>Clima Atual em {city.Name}</p>
-                    <ClimaText>{city.WeatherText}</ClimaText>
-                    <Temperature>{`${temperatura}°C`}</Temperature>
-                    <Link to={`/${city.Key}`}>
-                        <p>Mais detalhes</p>
-                    </Link>
-                </Content>
-            ) : (<Content>
-                <h2>Seja bem-Vindo</h2>
-                <ClimaText>Pesquise por sua cidade</ClimaText>
-            </Content>)
-            }
+        <Suspense fallback={<Loader />}>
+            <Context>
+                { loading ? <Loader/> :
+                city.WeatherText ? (
+                    <Content>
+                        <p style={{ fontSize: '18px', fontWeight: '600', margin: '0' }}>Clima Atual em {city.Name}</p>
+                        <ClimaText>{city.WeatherText}</ClimaText>
+                        <Temperature>{`${temperatura}°C`}</Temperature>
+                        <Link to={`/${city.Key}`}>
+                            <p>Mais detalhes</p>
+                        </Link>
+                    </Content>
+                ) : (<Content>
+                    <h2>Seja bem-Vindo</h2>
+                    <ClimaText>Pesquise por sua cidade</ClimaText>
+                </Content>)
+                }
             </Context>
-        </>
+        </Suspense>
     )
 }
 

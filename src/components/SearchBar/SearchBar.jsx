@@ -15,7 +15,7 @@ const SearchBar = styled.input`
     }
 `;
 
-const Container = styled.section`
+const Container = styled.form`
     display: flex;
     justify-content: center;
     align-items: center;

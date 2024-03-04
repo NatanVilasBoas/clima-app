@@ -10,7 +10,7 @@ const Inicial = () => {
     return (
         <>
             <Search onSearch={value => setSearch(value)} />
-            <RespAPI search={search}/>
+            <RespAPI search={search} />
         </>
     )
 }

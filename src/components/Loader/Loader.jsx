@@ -1,18 +1,18 @@
-import styled from "styled-components";
-
-
-const Text = styled.div`
-    font-size: 40px; 
-    height: 30vh; 
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
+import { Oval } from "react-loader-spinner";
 
 const Loader = () => {
     return(
-        <Text>Carregando...</Text>
+        <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <Oval
+            visible={true}
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            />
+        </div>
     )
 }
 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useCityContext } from "../context/City";
 import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Container = styled.div`
     margin: 3vw;
@@ -57,7 +58,7 @@ const Detalhes = () => {
             {city ? (
                 <>
                     <Link to="/">
-                        <Button><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(-45)" stroke="#000000"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" stroke="#CCCCCC" strokeWidth="0.24000000000000005"></g><g id="SVGRepo_iconCarrier"> <path d="M17 17L7 7M7 7V16M7 7H16" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></Button>
+                        <Button><FaArrowLeft size={30} /></Button>
                     </Link>
                     <Title>Clima em {city.Name}</Title>
                     <Container>

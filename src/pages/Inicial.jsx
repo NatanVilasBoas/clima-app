@@ -11,6 +11,7 @@ const Inicial = () => {
         <>
             <Search onSearch={value => setSearch(value)} />
             <RespAPI search={search} />
+            
         </>
     )
 }

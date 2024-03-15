@@ -1,29 +1,21 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useCityContext } from "../../context/City";
-import { Suspense, memo, useEffect, useState } from "react";
+import { Suspense, memo, useCallback, useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
+import wheaterService from "../../services/wheater";
 
 const Context = styled.section`
     display: flex;
-    flex-direction: column;
     background: transparent;
-    height: 100vh; 
     transition: background 0.5s ease;
 `
 
 const Content = styled.div`
   display: flex;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-top: 3vh;
   flex: 1;
-`
-
-const Temperature = styled.p`
-  font-size: 84px;
-  color: white;
-  margin: 40px 0 120px 0;
 `
 
 const ClimaText = styled.p`
@@ -31,72 +23,103 @@ const ClimaText = styled.p`
   color: white;
 `
 
-const apikey = process.env.REACT_APP_ACCUWEATHER_API_KEY;
+const GridContainer = styled.div`
+    margin: 3vw;
+    display: grid;
+    text-align: center;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+`
+
+const Card = styled.div`
+    border: 1px solid #E5E1DA;
+    padding: 1em;
+    border-radius: 16px;
+    background-color: #FBF9F1;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1)
+`
+
+const CardWind = styled(Card)`
+    grid-row: span 2;
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-around;
+`
 
 const RespAPI = ({ search }) => {
-    const { city, addCity, temperatura } = useCityContext();
     const [loading, setLoading] = useState(false);
+    const [clima, setClima] = useState({});
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {
-        if(!search) return;
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apikey}&q=${search}&language=pt-br`);
+    const fetchData = useCallback(async () => {
+        setLoading(true);
+        try {
+            const response = await wheaterService.buscarLocalCode(search);
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-
-                if ( data && data.length > 0) {
-                    const keyCity = data[0].Key;
-
-                    if (city.Key !== keyCity) {
-
-                        const respClima = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${keyCity}?apikey=${apikey}&language=pt-br&details=true`)
-
-                        const dataClima = await respClima.json();
-
-                        const cityWithKeyAndName = {
-                            ...dataClima[0],
-                            Key: keyCity,
-                            Name: search
-                        };
-
-                        addCity(cityWithKeyAndName);
-                    }
-                }
-
-            } catch (err) {
-                console.error(`Error fetching city data: ${err}`);
-            } finally {
-                setLoading(false);
-            }
+            const respClima = await wheaterService.buscarClima(response[0].Key);
+            setClima(respClima);
+        } catch (err) {
+            console.error(`Error fetching city data: ${err}`);
+        } finally {
+            setLoading(false);
         }
+    }, [search])
+
+    useEffect(() => {
+        if (!search) return;
+
         fetchData();
 
-    }, [search]);
+    }, [search, fetchData]);
 
     return (
         <Suspense fallback={<Loader />}>
             <Context>
-                { loading ? <Loader/> :
-                city.WeatherText ? (
-                    <Content>
-                        <p style={{ fontSize: '18px', fontWeight: '600', margin: '0' }}>Clima Atual em {city.Name}</p>
-                        <ClimaText>{city.WeatherText}</ClimaText>
-                        <Temperature>{`${temperatura}°C`}</Temperature>
-                        <Link to={`/${city.Key}`}>
-                            <p>Mais detalhes</p>
-                        </Link>
-                    </Content>
-                ) : (<Content>
-                    <h2>Seja bem-Vindo</h2>
-                    <ClimaText>Pesquise por sua cidade</ClimaText>
-                </Content>)
+                {loading ? <Loader /> :
+                    Object.keys(clima).length > 0 ? (
+                        <Content>
+                            <p style={{ fontSize: '18px', fontWeight: '600', margin: '0' }}>Clima Atual em {search}</p>
+                            <ClimaText>{clima[0].WeatherText}</ClimaText>
+                            <GridContainer>
+                                <CardWind>
+                                    <div>
+                                        <h3>Máxima:</h3>
+                                        <p>{clima[0].TemperatureSummary.Past12HourRange.Maximum.Metric.Value}°C</p>
+                                    </div>
+                                    <div>
+                                        <h3>Mínima:</h3>
+                                        <p>{clima[0].TemperatureSummary.Past12HourRange.Minimum.Metric.Value}°C</p>
+                                    </div>
+                                </CardWind>
+                                <Card>
+                                    <h3>Sensação Térmica:</h3>
+                                    <p>{`${clima[0].RealFeelTemperature.Metric.Value}°C`}</p>
+                                    <p>{clima[0].RealFeelTemperature.Metric.Phrase}</p>
+                                </Card>
+                                <Card>
+                                    <h3>Humidade Relativa:</h3>
+                                    <p>{clima[0].RelativeHumidity}%</p>
+                                </Card>
+                                <CardWind>
+                                    <div>
+                                        <h3>Vento:</h3>
+                                        <p>{clima[0].Wind.Direction.Degrees}° {clima[0].Wind.Direction.Localized}</p>
+                                    </div>
+                                    <div>
+                                        <h3>Velocidade:</h3>
+                                        <p>{clima[0].Wind.Speed.Metric.Value}km/h</p>
+                                    </div>
+                                </CardWind>
+                            </GridContainer>
+                        </Content>
+                    ) : (<Content>
+                        <h2>Seja bem-Vindo</h2>
+                        <ClimaText>Pesquise por sua cidade</ClimaText>
+                    </Content>)
                 }
             </Context>
         </Suspense>

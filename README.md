@@ -18,16 +18,10 @@ Use o github para clonar o projeto:
 ```bash
 git clone
 ```
-Com isso, use o comando
+Acesse a pasta do repositório e use o comando
 
 ```bash
-npm install create-react-app
-```
-
-Além disso, será necesário instalar o react-router-dom com os seguintes comandos
-
-```bash
-npm install react-router-dom
+npm install
 ```
 
 Por fim, basta executá-lo com

@@ -10,6 +10,7 @@ const Context = styled.section`
     justify-content: center;
     background: transparent;
     transition: background 0.5s ease;
+    height: 75vh;
 `
 
 const Content = styled.div`

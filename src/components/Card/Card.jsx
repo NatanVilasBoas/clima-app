@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DayCard from "./DayCard/DayCard";
 
 const CardWrapper = styled.div`
     display: flex;
@@ -6,10 +7,8 @@ const CardWrapper = styled.div`
     border-radius: 50px;
     background-color: #FBF9F1;
     text-align: center;
-    box-sizing: border-box;
     margin: 2em;
     width: 60%;
-    height: 40%;
     box-shadow: 6px 5px 20px  3px rgba(0, 0, 0, 0.25)
 `
 
@@ -41,19 +40,25 @@ const Temperature = styled.p`
     font-size: 128px;
 `
 
-const data = new Date();
-const diaDaSemanaIndex = data.getDay();
-const diasDaSemana = [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+const DayCardWrapper = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
+
+const diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
 const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-const diaDaSemana = diasDaSemana[diaDaSemanaIndex];
-const dia = data.getDate();
+
+const data = new Date();
 const mesIndex = data.getMonth();
+const diaDaSemanaIndex = data.getDay();
+const dia = data.getDate();
+const diaDaSemana = diasDaSemana[diaDaSemanaIndex];
 const mes = meses[mesIndex];
 
 const Card = () => {
     return (
         <CardWrapper>
-            <LeftSideCard> 
+            <LeftSideCard>
                 <UpperText>
                     <p>Botucatu</p>
                     <p>{`${diaDaSemana}, ${dia} de ${mes}`}</p>
@@ -61,12 +66,15 @@ const Card = () => {
                 <div>
                     <Temperature>21°C</Temperature>
                 </div>
-                <div>
-                    Cards 
-                </div>
+                <DayCardWrapper>
+                    <DayCard />
+                    <DayCard />
+                    <DayCard />
+                    <DayCard />
+                    <DayCard />
+                </DayCardWrapper>
             </LeftSideCard>
             <RightSideCard>
-                    
             </RightSideCard>
         </CardWrapper>
     )

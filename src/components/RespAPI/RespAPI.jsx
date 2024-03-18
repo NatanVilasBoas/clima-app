@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Suspense, memo, useCallback, useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import wheaterService from "../../services/wheater";
+import Card from "../Card/Card";
 
 const Context = styled.section`
     display: flex;
@@ -17,6 +18,7 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-top: 3vh;
+  height: 75vh;
   flex: 1;
 `
 
@@ -25,18 +27,6 @@ const ClimaText = styled.p`
   color: white;
 `
 
-const Card = styled.div`
-    border: 1px solid #E5E1DA;
-    padding: 1em;
-    border-radius: 16px;
-    background-color: #FBF9F1;
-    text-align: center;
-    box-sizing: border-box;
-    margin: 2em;
-    width: 80%;
-    height: 40%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1)
-`
 
 const RespAPI = ({ search }) => {
     const [loading, setLoading] = useState(false);
@@ -46,7 +36,6 @@ const RespAPI = ({ search }) => {
         setLoading(true);
         try {
             const response = await wheaterService.buscarLocalCode(search);
-
             const respClima = await wheaterService.buscarClima(response[0].Key);
             setClima(respClima);
         } catch (err) {
@@ -66,40 +55,27 @@ const RespAPI = ({ search }) => {
     return (
         <Suspense fallback={<Loader />}>
             <Context>
-                {loading ? <Loader /> :
+                {/* {loading ?
+                    (<Content>
+                        <Loader />
+                    </Content>) :
                     Object.keys(clima).length > 0 ? (
-                                <Card>
-                                    <p style={{ fontSize: '18px', fontWeight: '600', margin: '0' }}>Clima Atual em {search}</p>
-                                    <p>{clima[0].WeatherText}</p>
-                                    <div>
-                                        <h3>Máxima:</h3>
-                                        <p>{clima[0].TemperatureSummary.Past12HourRange.Maximum.Metric.Value}°C</p>
-                                    </div>
-                                    <div>
-                                        <h3>Mínima:</h3>
-                                        <p>{clima[0].TemperatureSummary.Past12HourRange.Minimum.Metric.Value}°C</p>
-                                    </div>
-                                    <h3>Sensação Térmica:</h3>
-                                    <p>{`${clima[0].RealFeelTemperature.Metric.Value}°C`}</p>
-                                    <p>{clima[0].RealFeelTemperature.Metric.Phrase}</p>
-                                    <h3>Humidade Relativa:</h3>
-                                    <p>{clima[0].RelativeHumidity}%</p>
-                                    <div>
-                                        <h3>Vento:</h3>
-                                        <p>{clima[0].Wind.Direction.Degrees}° {clima[0].Wind.Direction.Localized}</p>
-                                    </div>
-                                    <div>
-                                        <h3>Velocidade:</h3>
-                                        <p>{clima[0].Wind.Speed.Metric.Value}km/h</p>
-                                    </div>
-                                </Card>
+                        <Card>
+                            <div>
+                                {`${clima[0].Temperature.Metric.Value}°C`}
+                            </div>
+                            <div>
+
+                            </div>
+                        </Card>
                     ) : (<Content>
                         <h2>Seja bem-Vindo</h2>
                         <ClimaText>Pesquise por sua cidade</ClimaText>
                     </Content>)
-                }
+                } */}
+                <Card/>
             </Context>
-        </Suspense>
+        </Suspense >
     )
 }
 

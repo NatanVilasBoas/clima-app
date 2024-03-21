@@ -13,6 +13,11 @@ const wheaterService = {
     const response = await instance.get(`currentconditions/v1/${keyCity}?apikey=${APIKEY}&language=pt-br&details=true`)
 
     return response.data
+  },
+  buscarClimaDe5dias: async (keyCity) => {
+    const response = await instance.get(`/forecasts/v1/daily/5day/${keyCity}?apikey=${APIKEY}&language=pt-br&metric=true`)
+
+    return response.data
   }
 }
 

@@ -32,12 +32,14 @@ const ClimaText = styled.p`
 const RespAPI = ({ search }) => {
     const [loading, setLoading] = useState(false);
     const [clima, setClima] = useState({});
+    const [keyCity, setKeyCity] = useState('');
 
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
             const response = await wheaterService.buscarLocalCode(search);
             const respClima = await wheaterService.buscarClima(response[0].Key);
+            setKeyCity(response[0].Key);
             setClima(respClima);
         } catch (err) {
             console.error(`Error fetching city data: ${err}`);
@@ -56,33 +58,18 @@ const RespAPI = ({ search }) => {
     return (
         <Suspense fallback={<Loader />}>
             <Context>
-                {/* {loading ?
+                {loading ?
                     (<Content>
                         <Loader />
-                    </Content>) :
-                    Object.keys(clima).length > 0 ? (
-                        <Card>
-                            <div>
-                                {`${clima[0].Temperature.Metric.Value}°C`}
-                            </div>
-                            <div>
-
-                            </div>
-                        </Card>
-                    ) : (<Content>
-                        <h2>Seja bem-Vindo</h2>
-                        <ClimaText>Pesquise por sua cidade</ClimaText>
-                    </Content>)
-                } */}
-                {Object.keys(clima).length > 0 ?
-                    (<Card city={search} temperature={clima[0].Temperature.Metric.Value} />)
-                    :
-                    (
-                        <>
-                            <h2>Seja bem-Vindo</h2>
-                            <ClimaText>Pesquise por sua cidade</ClimaText>
-                        </>
-                    )
+                    </Content>) : Object.keys(clima).length > 0 ?
+                        (<Card keyCity={keyCity} city={search} temperature={clima[0].Temperature.Metric.Value} />)
+                        :
+                        (
+                            <>
+                                <h2>Seja bem-Vindo</h2>
+                                <ClimaText>Pesquise por sua cidade</ClimaText>
+                            </>
+                        )
                 }
             </Context>
         </Suspense >

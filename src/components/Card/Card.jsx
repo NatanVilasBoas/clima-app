@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import DayCard from "./DayCard/DayCard";
 import { useEffect, useState } from "react";
+import wheaterService from "../../services/wheater";
 
 const CardWrapper = styled.div`
     display: flex;
@@ -62,12 +63,20 @@ for (let i = 0; i < 5; i++) {
     proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
 }
 
-const Card = ({temperature, city}) => {
+const Card = ({temperature, city, keyCity}) => {
     const [dayCards, setDayCards] = useState([]);
+    const [climas, setClimas] = useState([]);
 
     useEffect(() => {
+        const consultaPelosCLimas = async () => {
+            const response = await wheaterService.buscarClimaDe5dias(keyCity);
+    
+            setClimas([response.DailyForecasts, ...proximosDias]);
+        }
+
+        consultaPelosCLimas();        
         setDayCards(proximosDias);
-    }, [])
+    }, [keyCity])
 
     return (
         <CardWrapper>
@@ -80,14 +89,12 @@ const Card = ({temperature, city}) => {
                     <Temperature>{temperature}°C</Temperature>
                 </div>
                 <DayCardWrapper>
-                    {dayCards.map(day => {
-                        if (day.dia === diaDaSemana) {
-                            return (
-                                <DayCard key={day.dia} dia={day.dia} select />
-                            )
+                    {climas.map((day, index) => {
+                        if(index === 0){
+                            return null;
                         }
                         return (
-                            <DayCard key={day.dia} dia={day.dia} />
+                            <DayCard key={day.dia} dia={day.dia} select={day.dia === diaDaSemana ? true : false}/>
                         )
                     })}
                 </DayCardWrapper>

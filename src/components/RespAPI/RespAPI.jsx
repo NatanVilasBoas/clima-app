@@ -74,7 +74,16 @@ const RespAPI = ({ search }) => {
                         <ClimaText>Pesquise por sua cidade</ClimaText>
                     </Content>)
                 } */}
-                <Card/>
+                {Object.keys(clima).length > 0 ?
+                    (<Card city={search} temperature={clima[0].Temperature.Metric.Value} />)
+                    :
+                    (
+                        <>
+                            <h2>Seja bem-Vindo</h2>
+                            <ClimaText>Pesquise por sua cidade</ClimaText>
+                        </>
+                    )
+                }
             </Context>
         </Suspense >
     )

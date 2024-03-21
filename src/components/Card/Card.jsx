@@ -62,7 +62,7 @@ for (let i = 0; i < 5; i++) {
     proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
 }
 
-const Card = () => {
+const Card = ({temperature, city}) => {
     const [dayCards, setDayCards] = useState([]);
 
     useEffect(() => {
@@ -73,11 +73,11 @@ const Card = () => {
         <CardWrapper>
             <LeftSideCard>
                 <UpperText>
-                    <p>Botucatu</p>
+                    <p>{city}</p>
                     <p>{`${diaDaSemana}, ${dia} de ${mes}`}</p>
                 </UpperText>
                 <div>
-                    <Temperature>21°C</Temperature>
+                    <Temperature>{temperature}°C</Temperature>
                 </div>
                 <DayCardWrapper>
                     {dayCards.map(day => {

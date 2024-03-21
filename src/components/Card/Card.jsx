@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import DayCard from "./DayCard/DayCard";
+import { useEffect, useState } from "react";
 
 const CardWrapper = styled.div`
     display: flex;
@@ -54,8 +55,20 @@ const diaDaSemanaIndex = data.getDay();
 const dia = data.getDate();
 const diaDaSemana = diasDaSemana[diaDaSemanaIndex];
 const mes = meses[mesIndex];
+const proximosDias = [];
+
+for (let i = 0; i < 5; i++) {
+    const proximoDiaIndex = (diaDaSemanaIndex + i) % 7;
+    proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
+}
 
 const Card = () => {
+    const [dayCards, setDayCards] = useState([]);
+
+    useEffect(() => {
+        setDayCards(proximosDias);
+    }, [])
+
     return (
         <CardWrapper>
             <LeftSideCard>
@@ -67,11 +80,16 @@ const Card = () => {
                     <Temperature>21°C</Temperature>
                 </div>
                 <DayCardWrapper>
-                    <DayCard />
-                    <DayCard />
-                    <DayCard />
-                    <DayCard />
-                    <DayCard />
+                    {dayCards.map(day => {
+                        if (day.dia === diaDaSemana) {
+                            return (
+                                <DayCard key={day.dia} dia={day.dia} select />
+                            )
+                        }
+                        return (
+                            <DayCard key={day.dia} dia={day.dia} />
+                        )
+                    })}
                 </DayCardWrapper>
             </LeftSideCard>
             <RightSideCard>

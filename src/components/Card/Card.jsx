@@ -92,14 +92,14 @@ const Card = ({ temperature, city, keyCity, icon }) => {
                 </div>
                 <DayCardWrapper>
                     {climas && climas.map((day, index) => {
-                        const temperature = ((day.Temperature.Maximum.Value + day.Temperature.Minimum.Value) / 2).toFixed(1)
 
                         return (
                             <DayCard
                                 key={index}
                                 dia={proximosDias[index].dia}
-                                select={day.dia === diaDaSemana ? true : false}
-                                temperatura={temperature}
+                                select={proximosDias[index].dia === diaDaSemana ? true : false}
+                                max={day.Temperature.Maximum.Value}
+                                min={day.Temperature.Minimum.Value}
                                 icone={icons[changeIcon(day.Day.Icon)]}
                             />
                         )

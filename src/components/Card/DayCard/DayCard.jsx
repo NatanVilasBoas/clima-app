@@ -10,10 +10,9 @@ const Card = styled.div`
     margin: 3rem 1rem 1rem;
     border-radius: 20px;
     box-shadow: 4px 6px 8px 0px rgba(0, 0, 0, 0.25);
-    height: 7rem;
+    height: 8rem;
     width: 5rem;
     border: ${props => props.className ? '1px solid black' : ''};
-    cursor: pointer;
     transition: 0.2s ease-in-out;
 
     &:hover{
@@ -27,11 +26,12 @@ const Text = styled.p`
     margin: 0 auto;
 `
 
-const DayCard = ({ dia, select, temperatura, icone }) => {
+const DayCard = ({ dia, select, max, min, icone }) => {
     return (
         <Card className={select}>
             <Text>{dia}</Text>
-            <Text style={{ fontSize: '24px' }}>{temperatura}°C</Text>
+            <Text style={{ fontSize: '24px' }}>{max}°C</Text>
+            <Text style={{ fontSize: '12px' }}>{min}°C</Text>
             {icone}
         </Card>
     )

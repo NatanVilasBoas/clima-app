@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DayCard from "./DayCard/DayCard";
 import { useEffect, useState } from "react";
 import wheaterService from "../../services/wheater";
+import { useCityContext } from "../../context/City";
 
 const CardWrapper = styled.div`
     display: flex;
@@ -38,8 +39,9 @@ const UpperText = styled.div`
 `
 
 const Temperature = styled.p`
-    margin: 0 auto;
+    margin: 0 32px;
     font-size: 128px;
+    display: inline;
 `
 
 const DayCardWrapper = styled.div`
@@ -63,7 +65,8 @@ for (let i = 0; i < 5; i++) {
     proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
 }
 
-const Card = ({ temperature, city, keyCity }) => {
+const Card = ({ temperature, city, keyCity, icon }) => {
+    const { icons, changeIcon } = useCityContext();
     const [climas, setClimas] = useState([]);
 
     useEffect(() => {
@@ -85,16 +88,19 @@ const Card = ({ temperature, city, keyCity }) => {
                 </UpperText>
                 <div>
                     <Temperature>{temperature}°C</Temperature>
+                    {icons[changeIcon(icon)]}
                 </div>
                 <DayCardWrapper>
                     {climas && climas.map((day, index) => {
-                        const temperature = ((day.Temperature.Maximum.Value + day.Temperature.Minimum.Value)/2).toFixed(1)
+                        const temperature = ((day.Temperature.Maximum.Value + day.Temperature.Minimum.Value) / 2).toFixed(1)
+
                         return (
                             <DayCard
                                 key={index}
                                 dia={proximosDias[index].dia}
                                 select={day.dia === diaDaSemana ? true : false}
-                                temperatura={temperature} 
+                                temperatura={temperature}
+                                icone={icons[changeIcon(day.Day.Icon)]}
                             />
                         )
                     })}

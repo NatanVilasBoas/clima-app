@@ -32,15 +32,15 @@ const ClimaText = styled.p`
 
 const RespAPI = ({ search }) => {
     const [loading, setLoading] = useState(false);
-    const [clima, setClima] = useClimaContext();
-    const [keyCity, setKeyCity] = useState('');
+    const {clima, setClima} = useClimaContext();
+    const [keyClima, setKeyClima] = useState('');
 
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
             const response = await wheaterService.buscarLocalCode(search);
             const respClima = await wheaterService.buscarClima(response[0].Key);
-            setKeyCity(response[0].Key);
+            setKeyClima(response[0].Key);
             setClima(respClima);
         } catch (err) {
             console.error(`Error fetching city data: ${err}`);
@@ -63,7 +63,7 @@ const RespAPI = ({ search }) => {
                     (<Content>
                         <Loader />
                     </Content>) : Object.keys(clima).length > 0 ?
-                        (<Card keyCity={keyCity} city={search} temperature={clima[0].Temperature.Metric.Value} icon={clima[0]['WheaterIcon']}/>)
+                        (<Card keyClima={keyClima} clima={search} temperature={clima[0].Temperature.Metric.Value} icon={clima[0]['WheaterIcon']}/>)
                         :
                         (
                             <>

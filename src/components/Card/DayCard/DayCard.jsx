@@ -24,11 +24,11 @@ const Text = styled.p`
     margin: 0 auto;
 `
 
-const DayCard = ({dia, select}) => {
+const DayCard = ({dia, select, temperatura}) => {
     return(
         <Card className={select}>
             <Text>{dia}</Text>
-            <Text style={{fontSize: '24px'}}>18°</Text>
+            <Text style={{fontSize: '24px'}}>{temperatura}°C</Text>
             <p>Icone</p>
         </Card>
     )

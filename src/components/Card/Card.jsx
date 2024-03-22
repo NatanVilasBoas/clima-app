@@ -63,19 +63,17 @@ for (let i = 0; i < 5; i++) {
     proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
 }
 
-const Card = ({temperature, city, keyCity}) => {
-    const [dayCards, setDayCards] = useState([]);
+const Card = ({ temperature, city, keyCity }) => {
     const [climas, setClimas] = useState([]);
 
     useEffect(() => {
         const consultaPelosCLimas = async () => {
             const response = await wheaterService.buscarClimaDe5dias(keyCity);
-    
-            setClimas([response.DailyForecasts, ...proximosDias]);
+
+            setClimas(response.DailyForecasts);
         }
 
-        consultaPelosCLimas();        
-        setDayCards(proximosDias);
+        consultaPelosCLimas();
     }, [keyCity])
 
     return (
@@ -89,12 +87,15 @@ const Card = ({temperature, city, keyCity}) => {
                     <Temperature>{temperature}°C</Temperature>
                 </div>
                 <DayCardWrapper>
-                    {climas.map((day, index) => {
-                        if(index === 0){
-                            return null;
-                        }
+                    {climas && climas.map((day, index) => {
+                        const temperature = ((day.Temperature.Maximum.Value + day.Temperature.Minimum.Value)/2).toFixed(1)
                         return (
-                            <DayCard key={day.dia} dia={day.dia} select={day.dia === diaDaSemana ? true : false}/>
+                            <DayCard
+                                key={index}
+                                dia={proximosDias[index].dia}
+                                select={day.dia === diaDaSemana ? true : false}
+                                temperatura={temperature} 
+                            />
                         )
                     })}
                 </DayCardWrapper>

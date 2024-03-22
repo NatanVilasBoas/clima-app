@@ -2,21 +2,21 @@ import { createContext, useContext, useState } from "react";
 import { WiCloudy, WiDayCloudy, WiDayCloudyGusts, WiDaySunny, WiHail } from "react-icons/wi";
 
 
-export const CityContext = createContext();
-CityContext.displayName = "Wheater";
+export const ClimaContext = createContext();
+ClimaContext.displayName = "Wheater";
 
-export default function CityProvider({ children }) {
-    const [city, setCity] = useState({});
+export default function ClimaProvider({ children }) {
+    const [clima, setClima] = useState({});
 
     return (
-        <CityContext.Provider value={{ city, setCity }}>
+        <ClimaContext.Provider value={{ clima, setClima }}>
             {children}
-        </CityContext.Provider>
+        </ClimaContext.Provider>
     )
 }
 
-export function useCityContext() {
-    const { city, setCity } = useContext(CityContext);
+export function useClimaContext() {
+    const { clima, setClima } = useContext(ClimaContext);
 
     const icons = [<WiDaySunny size={40} />, <WiCloudy size={40} />, <WiHail size={40} />, <WiDayCloudyGusts size={40} />, <WiDayCloudy size={40} />]
 
@@ -55,16 +55,11 @@ export function useCityContext() {
 
     }
 
-    function addCity(newCity) {
-
-        setCity(newCity);
-    }
-
-    const temperatura = city.Temperature ? Math.round(parseFloat(city.Temperature.Metric.Value)) : 0;
+    const temperatura = clima.Temperature ? Math.round(parseFloat(clima.Temperature.Metric.Value)) : 0;
 
     return {
-        city,
-        addCity,
+        clima,
+        setClima,
         temperatura,
         icons,
         changeIcon

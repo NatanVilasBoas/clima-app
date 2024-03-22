@@ -2,7 +2,7 @@ import styled from "styled-components";
 import DayCard from "./DayCard/DayCard";
 import { useEffect, useState } from "react";
 import wheaterService from "../../services/wheater";
-import { useCityContext } from "../../context/City";
+import { useClimaContext } from "../../context/City";
 
 const CardWrapper = styled.div`
     display: flex;
@@ -65,25 +65,25 @@ for (let i = 0; i < 5; i++) {
     proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
 }
 
-const Card = ({ temperature, city, keyCity, icon }) => {
-    const { icons, changeIcon } = useCityContext();
+const Card = ({ temperature, clima, keyClima, icon }) => {
+    const { icons, changeIcon } = useClimaContext();
     const [climas, setClimas] = useState([]);
 
     useEffect(() => {
         const consultaPelosCLimas = async () => {
-            const response = await wheaterService.buscarClimaDe5dias(keyCity);
+            const response = await wheaterService.buscarClimaDe5dias(keyClima);
 
             setClimas(response.DailyForecasts);
         }
 
         consultaPelosCLimas();
-    }, [keyCity])
+    }, [keyClima])
 
     return (
         <CardWrapper>
             <LeftSideCard>
                 <UpperText>
-                    <p>{city}</p>
+                    <p>{clima}</p>
                     <p>{`${diaDaSemana}, ${dia} de ${mes}`}</p>
                 </UpperText>
                 <div>

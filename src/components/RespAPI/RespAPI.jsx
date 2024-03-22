@@ -3,6 +3,7 @@ import { Suspense, memo, useCallback, useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import wheaterService from "../../services/wheater";
 import Card from "../Card/Card";
+import { useClimaContext } from "../../context/City";
 
 const Context = styled.section`
     display: flex;
@@ -31,7 +32,7 @@ const ClimaText = styled.p`
 
 const RespAPI = ({ search }) => {
     const [loading, setLoading] = useState(false);
-    const [clima, setClima] = useState({});
+    const [clima, setClima] = useClimaContext();
     const [keyCity, setKeyCity] = useState('');
 
     const fetchData = useCallback(async () => {
@@ -46,7 +47,7 @@ const RespAPI = ({ search }) => {
         } finally {
             setLoading(false);
         }
-    }, [search])
+    }, [search,setClima])
 
     useEffect(() => {
         if (!search) return;

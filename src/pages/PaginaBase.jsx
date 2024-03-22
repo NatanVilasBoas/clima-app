@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Tema from "../tema/Tema";
 import Footer from "../components/Footer/Footer";
-import { useCityContext } from "../context/City";
+import { useClimaContext } from "../context/City";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const PaginaBase = () => {
 
-    const { temperatura } = useCityContext();
+    const { temperatura } = useClimaContext();
 
     return (
         <Tema>

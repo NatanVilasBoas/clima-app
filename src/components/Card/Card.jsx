@@ -84,6 +84,15 @@ const TemperatureValue = styled.p`
     }
 `
 
+const WheaterText = styled.p`
+    margin: 0;
+    font-size: 16px;
+    
+    @media(max-width: 720px){
+        font-size: 8px;
+    }
+`
+
 const DayCardWrapper = styled.div`
     display: flex;
     justify-content: space-around;
@@ -144,7 +153,7 @@ const Card = ({ local, keyClima, icon }) => {
                     <TemperatureValue>{clima[0].Temperature.Metric.Value}°C</TemperatureValue>
                     <div>
                         {icons[changeIcon(icon)]}
-                        <p style={{margin: "0px auto", fontSize:"16px"}}>{clima[0].WeatherText}</p>
+                        <WheaterText>{clima[0].WeatherText}</WheaterText>
                     </div>
                 </TemperatureDisplay>
                 <DayCardWrapper>

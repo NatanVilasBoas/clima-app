@@ -66,10 +66,10 @@ const RespAPI = ({ search }) => {
                         (<Card keyClima={keyClima} local={search} icon={clima[0]['WheaterIcon']}/>)
                         :
                         (
-                            <>
+                            <Content>
                                 <h2>Seja bem-Vindo</h2>
                                 <ClimaText>Pesquise por sua cidade</ClimaText>
-                            </>
+                            </Content>
                         )
                 }
             </Context>

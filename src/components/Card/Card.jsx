@@ -99,10 +99,6 @@ const DayCardWrapper = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
     @media(max-width: 500px){
         padding: 0 0 0 8rem;
     }

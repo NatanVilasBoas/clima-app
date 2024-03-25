@@ -164,10 +164,10 @@ const Card = ({ local, keyClima, icon }) => {
                 </DayCardWrapper>
             </LeftSideCard>
             <RightSideCard>
-                <p>Sensação Térmica: {clima[0].RealFeelTemperature.Metric.Value}°C</p>
-                <p>Precipitação: {clima[0].RelativeHumidity}%</p>
-                <p>Pressão: {clima[0].Pressure.Metric.Value}mb</p>
-                <p>Vento: {clima[0].Wind.Speed.Metric.Value}km/h</p>
+                <p><strong>Sensação Térmica:</strong> {clima[0].RealFeelTemperature.Metric.Value}°C</p>
+                <p><strong>Precipitação:</strong> {clima[0].RelativeHumidity}%</p>
+                <p><strong>Pressão:</strong> {clima[0].Pressure.Metric.Value}mb</p>
+                <p><strong>Vento:</strong> {clima[0].Wind.Speed.Metric.Value}km/h</p>
             </RightSideCard>
         </CardWrapper>
     )

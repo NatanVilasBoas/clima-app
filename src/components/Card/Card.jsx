@@ -11,25 +11,46 @@ const CardWrapper = styled.div`
     background-color: #FBF9F1;
     text-align: center;
     margin: 2em;
-    width: 60%;
-    box-shadow: 6px 5px 20px  3px rgba(0, 0, 0, 0.25)
+    width: 65%;
+    box-sizing: border-box;
+    box-shadow: 6px 5px 20px  3px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+
+    @media(max-width: 1200px){
+        width: 95%;
+        flex-direction: column;
+    }
 `
 
 const LeftSideCard = styled.div`
     display: flex;
     flex-direction: column;
     width: 75%;
+
+    @media(max-width: 1200px){
+        width: 100%;    
+    }
 `
 
 const RightSideCard = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 2rem 0 0 2rem;
+    padding: 2rem;
     text-align: left;
     background-color: #EEEBDE;
     width: 25%;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
+
+    @media(max-width: 1200px){
+        font-size: 14px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 50px;
+        border-bottom-left-radius: 50px;
+        width: inherit;    
+        flex-direction: row;
+        justify-content: space-around;
+    }
 `
 
 const UpperText = styled.div`
@@ -51,11 +72,16 @@ const TemperatureValue = styled.p`
     margin: 0 32px;
     font-size: 128px;
     display: inline;
+    
+    @media(max-width: 1000px){
+        font-size:64px
+    }
 `
 
 const DayCardWrapper = styled.div`
     display: flex;
     justify-content: space-around;
+    overflow-x: hidden;
 `
 
 const diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']

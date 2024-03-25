@@ -12,6 +12,10 @@ const Context = styled.section`
     background: transparent;
     transition: background 0.5s ease;
     height: 75vh;
+
+    @media(max-width: 1200px){
+        height: 100%;
+    }
 `
 
 const Content = styled.div`

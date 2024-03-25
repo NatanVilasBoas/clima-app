@@ -100,11 +100,7 @@ const DayCardWrapper = styled.div`
     overflow-y: hidden;
 
     @media(max-width: 500px){
-        padding: 0 0 0 8rem;
-    }
-
-    @media(max-width: 400px){
-        padding: 0 0 0 12rem;
+        padding: 0 0 0 2rem;
     }
 `
 

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Tema from "../tema/Tema";
 import Footer from "../components/Footer/Footer";
-import { useClimaContext } from "../context/City";
+import { useClimaContext } from "../context/Clima";
 import styled from "styled-components";
 
 const Container = styled.div`

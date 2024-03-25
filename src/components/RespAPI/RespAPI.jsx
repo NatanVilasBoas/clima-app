@@ -3,7 +3,7 @@ import { Suspense, memo, useCallback, useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import wheaterService from "../../services/wheater";
 import Card from "../Card/Card";
-import { useClimaContext } from "../../context/City";
+import { useClimaContext } from "../../context/Clima";
 
 const Context = styled.section`
     display: flex;

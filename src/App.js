@@ -1,4 +1,4 @@
-import CityProvider from "./context/City";
+import CityProvider from "./context/Clima";
 import AppRoutes from "./routes";
 
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import DayCard from "./DayCard/DayCard";
 import { useEffect, useState } from "react";
 import wheaterService from "../../services/wheater";
-import { useClimaContext } from "../../context/City";
+import { useClimaContext } from "../../context/Clima";
 
 const CardWrapper = styled.div`
     display: flex;

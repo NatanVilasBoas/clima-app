@@ -17,7 +17,7 @@ const CardWrapper = styled.div`
     overflow: hidden;
 
     @media(max-width: 1200px){
-        width: 95%;
+        width: 98%;
         flex-direction: column;
     }
 `
@@ -51,6 +51,12 @@ const RightSideCard = styled.div`
         flex-direction: row;
         justify-content: space-around;
     }
+
+    @media(max-width: 720px){
+        font-size: 12px;
+        gap: 12px;
+        padding: 2rem 2rem 2rem 0;
+    }
 `
 
 const UpperText = styled.div`
@@ -73,7 +79,7 @@ const TemperatureValue = styled.p`
     font-size: 128px;
     display: inline;
     
-    @media(max-width: 1000px){
+    @media(max-width: 720px){
         font-size:64px
     }
 `
@@ -81,7 +87,20 @@ const TemperatureValue = styled.p`
 const DayCardWrapper = styled.div`
     display: flex;
     justify-content: space-around;
-    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media(max-width: 500px){
+        padding: 0 0 0 8rem;
+    }
+
+    @media(max-width: 400px){
+        padding: 0 0 0 12rem;
+    }
 `
 
 const diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']

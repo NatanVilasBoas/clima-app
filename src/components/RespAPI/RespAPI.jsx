@@ -63,7 +63,7 @@ const RespAPI = ({ search }) => {
                     (<Content>
                         <Loader />
                     </Content>) : Object.keys(clima).length > 0 ?
-                        (<Card keyClima={keyClima} clima={search} temperature={clima[0].Temperature.Metric.Value} icon={clima[0]['WheaterIcon']}/>)
+                        (<Card keyClima={keyClima} local={search} icon={clima[0]['WheaterIcon']}/>)
                         :
                         (
                             <>

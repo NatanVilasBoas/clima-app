@@ -24,7 +24,8 @@ const LeftSideCard = styled.div`
 const RightSideCard = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 2em;
+    padding: 2rem 0 0 2rem;
+    text-align: left;
     background-color: #EEEBDE;
     width: 25%;
     border-top-right-radius: 50px;
@@ -38,7 +39,15 @@ const UpperText = styled.div`
     font-size: 16px;
 `
 
-const Temperature = styled.p`
+const TemperatureDisplay = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    padding: 0 4rem;
+`
+
+const TemperatureValue = styled.p`
     margin: 0 32px;
     font-size: 128px;
     display: inline;
@@ -65,8 +74,8 @@ for (let i = 0; i < 5; i++) {
     proximosDias.push({ selected: false, dia: diasDaSemana[proximoDiaIndex] });
 }
 
-const Card = ({ temperature, clima, keyClima, icon }) => {
-    const { icons, changeIcon } = useClimaContext();
+const Card = ({ local, keyClima, icon }) => {
+    const { icons, changeIcon, clima } = useClimaContext();
     const [climas, setClimas] = useState([]);
 
     useEffect(() => {
@@ -83,13 +92,16 @@ const Card = ({ temperature, clima, keyClima, icon }) => {
         <CardWrapper>
             <LeftSideCard>
                 <UpperText>
-                    <p>{clima}</p>
+                    <p>{local}</p>
                     <p>{`${diaDaSemana}, ${dia} de ${mes}`}</p>
                 </UpperText>
-                <div>
-                    <Temperature>{temperature}°C</Temperature>
-                    {icons[changeIcon(icon)]}
-                </div>
+                <TemperatureDisplay>
+                    <TemperatureValue>{clima[0].Temperature.Metric.Value}°C</TemperatureValue>
+                    <div>
+                        {icons[changeIcon(icon)]}
+                        <p style={{margin: "0px auto", fontSize:"16px"}}>{clima[0].WeatherText}</p>
+                    </div>
+                </TemperatureDisplay>
                 <DayCardWrapper>
                     {climas && climas.map((day, index) => {
 
@@ -107,6 +119,10 @@ const Card = ({ temperature, clima, keyClima, icon }) => {
                 </DayCardWrapper>
             </LeftSideCard>
             <RightSideCard>
+                <p>Sensação Térmica: {clima[0].RealFeelTemperature.Metric.Value}°C</p>
+                <p>Precipitação: {clima[0].RelativeHumidity}%</p>
+                <p>Pressão: {clima[0].Pressure.Metric.Value}mb</p>
+                <p>Vento: {clima[0].Wind.Speed.Metric.Value}km/h</p>
             </RightSideCard>
         </CardWrapper>
     )
